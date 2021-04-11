@@ -1,0 +1,196 @@
+// You can set the compiler to gcc, clang or other compiler as you like, default is clang
+{
+	"version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Cmake: Out-of-source build",
+            "command": "cmake",
+            "args": ["-DCMAKE_BUILD_TYPE=Debug", "../"],
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+            },
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                  "regexp": "^(CMake )(Warning|Error) at (.*):([0-9]+) (.*)$",
+                  "file": 3,
+                  "line": 4,
+                  "severity": 2,
+                  "message": 5
+                }
+            },
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "compiler: /usr/bin/clang++",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "C/C++: Build Project through CMake",
+            "command": "cmake",
+            "args": ["--build", "./", "--config", "Debug"],
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "compiler: /usr/bin/clang++",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "C/C++: Build Project by Makefile",
+            "command": "make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "compiler: /usr/bin/clang++",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info"
+            ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: clang build active file with structure dir",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-I${workspaceFolder}\\inc",
+                "-g",
+                "${file}",
+                "-o",
+                "${workspaceFolder}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "compiler: /usr/bin/clang++",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info"
+            ]
+        },
+        {
+            "type": "cppbuild",
+            "label": "C/C++: cpp.exe build active file with plain dir",
+            "command": "/usr/bin/clang++",
+            "args": [
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "compiler: /usr/bin/clang++",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "make run",
+            "command": "make",
+            "args": [
+                "run"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "excute make run command in ${workspaceFolder}",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info",
+                "C/C++: Build Project through CMake"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "make clean",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build",
+            },
+            "problemMatcher": [],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "excute make clean command in ${workspaceFolder}"
+        },
+        {
+            "type": "shell",
+            "label": "List WorkSpace Info",
+            "command": "echo 'WorkspaceFolder = ${workspaceFolder}'; ls",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "List the infomation of current WorkSpace"
+        }
+    ]
+}

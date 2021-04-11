@@ -1,0 +1,30 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+    {
+        "key": "ctrl+alt+oem_3",
+        "command": "shellLauncher.launch"
+    },
+    {
+        "key": "alt+t",
+        "command": "workbench.action.tasks.runTask"
+    },
+    {
+        "key": "ctrl+shift+x",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Cmake: Out-of-source build"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "workbench.action.tasks.test"
+    },
+    {
+        "key": "ctrl+shift+l",
+        "command": "workbench.action.tasks.runTask",
+        "args": "make clean",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+alt+r",
+        "command": "workbench.action.tasks.reRunTask"
+    },
+]
