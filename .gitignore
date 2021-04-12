@@ -6,6 +6,7 @@ build/
 
 # Executable generated on current directory.
 main
+.exe
 
 # Compiled object files
 *.slo
@@ -37,6 +38,8 @@ core
 core.*
 
 .vagrant
+
+.log
 
 # Python tests runners.
 *.pyc
