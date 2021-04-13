@@ -6,19 +6,29 @@
             "type": "shell",
             "label": "Cmake: Out-of-source build",
             "command": "CMake-MinGW",
-            "args": ["-DCMAKE_BUILD_TYPE=Debug", "../"],
+            "args": [
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "../",
+                "|",
+                "Tee-Object",
+                "-file",
+                ".\\cmake.log"
+            ],
             "options": {
-                "cwd": "${workspaceFolder}\\build",
+                "cwd": "${workspaceFolder}\\build"
             },
             "problemMatcher": {
                 "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "pattern": {
-                  "regexp": "^(CMake )(Warning|Error) at (.*):([0-9]+) (.*)$",
-                  "file": 3,
-                  "line": 4,
-                  "severity": 2,
-                  "message": 5
+                    "regexp": "^(CMake )(Warning|Error) at (.*):([0-9]+) (.*)$",
+                    "file": 3,
+                    "line": 4,
+                    "severity": 2,
+                    "message": 5
                 }
             },
             "group": "build",
@@ -36,9 +46,18 @@
             "type": "shell",
             "label": "C/C++: Build Project through CMake",
             "command": "CMake",
-            "args": ["--build", "./", "--config", "Debug"],
+            "args": [
+                "--build",
+                "./",
+                "--config",
+                "Debug",
+                "|",
+                "Tee-Object",
+                "-file",
+                ".\\make_build.log"
+            ],
             "options": {
-                "cwd": "${workspaceFolder}\\build",
+                "cwd": "${workspaceFolder}\\build"
             },
             "problemMatcher": [
                 "$gcc"
@@ -63,7 +82,7 @@
             "command": "make",
             "args": [],
             "options": {
-                "cwd": "${workspaceFolder}\\build",
+                "cwd": "${workspaceFolder}\\build"
             },
             "problemMatcher": [
                 "$gcc"
@@ -139,10 +158,14 @@
             "label": "make run",
             "command": "make",
             "args": [
-                "run"
+                "run",
+                "|",
+                "Tee-Object",
+                "-file",
+                ".\\make_run.log"
             ],
             "options": {
-                "cwd": "${workspaceFolder}\\build",
+                "cwd": "${workspaceFolder}\\build"
             },
             "problemMatcher": [],
             "group": {
@@ -168,7 +191,7 @@
                 "clean"
             ],
             "options": {
-                "cwd": "${workspaceFolder}\\build",
+                "cwd": "${workspaceFolder}\\build"
             },
             "problemMatcher": [],
             "group": "test",
