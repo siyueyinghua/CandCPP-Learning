@@ -27,4 +27,12 @@
         "key": "ctrl+alt+r",
         "command": "workbench.action.tasks.reRunTask"
     },
+        {
+        "key": "oem_3 l",
+        "command": "editor.action.transformToLowercase"
+    },
+    {
+        "key": "oem_3 u",
+        "command": "editor.action.transformToUppercase"
+    },
 ]
