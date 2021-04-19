@@ -1,0 +1,158 @@
+<#
+#********************************************************************
+#  #FileName                : profile.ps1
+#  #Writter                 : Ye Mingguang / Yesire-Lincoln
+#  #Language                : PowerShell
+#  #Last Modifed            : 2021-03-23
+#  #First Release Date      : 2020-12-16
+#  #Description             : My profile
+#********************************************************************
+#>
+
+
+<#
+#********************************************************************
+#						Default Start Path
+#					My Variable of Envirenment
+#********************************************************************
+#>
+# Set-Location -Path D:\Yesire-Lincoln
+New-Variable -Name "MyProgramHome" -Value "D:\YLProgramHub"
+
+[system.net.webrequest]::defaultwebproxy = new-object system.net.webproxy('http://openproxy.huawei.com:8080')
+[system.net.webrequest]::defaultwebproxy.credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+[system.net.webrequest]::defaultwebproxy.BypassProxyOnLocal = $true
+
+
+<#
+#********************************************************************
+#							My Function
+#********************************************************************
+#>
+
+filter Filter-String ([string]$pattern = ".")
+{
+    #Out-String -InputObject $_ -Stream | Select-String -Pattern "$pattern"
+    Select-String -InputObject $_ -Pattern "$pattern"
+}
+
+function Filter-File ([string]$searchPath = ".\", [string]$pattern = ".")
+{
+    Write-Host "Patameter List:" -ForegroundColor Green
+    Write-Host "searchPath: $searchPath" -ForegroundColor Green
+    Write-Host "pattern: $pattern" -ForegroundColor Green
+
+    Get-ChildItem -Path $searchPath -Recurse | Select-String -Pattern "$pattern"
+}
+
+function CommandOut-ToString ([string]$command = "")
+{
+    Invoke-Expression $command | Out-String -Stream
+}
+
+
+# Grep shortcut alias
+function Extend-Grep ()
+{
+    grep -E @args
+}
+
+function Fixed-Grep ()
+{
+    grep -F @args
+}
+
+function Grep-Color ()
+{
+    grep --color=auto @args
+}
+
+function Egrep-Color ()
+{
+    egrep --color=auto @args
+}
+
+function Fgrep-Color ()
+{
+    fgrep --color=auto @args
+}
+
+
+
+#function New-Link ([string]$source, [string]$target) {
+function New-Link () {
+	[CmdletBinding()]
+    param (
+		[Parameter(Mandatory)][string]$source,
+		[Parameter(Mandatory)][string]$target
+	)
+    New-Item -Path $target -ItemType SymbolicLink -Value $source
+}
+
+function Dir-List ([string]$tgtdir) {
+	Set-Location $tgtdir
+	Get-ChildItem ".\"
+}
+
+#CMake Various Target
+function CMake-NMake () {
+    cmake -G "NMake Makefiles" @args
+}
+
+function CMake-Unix () {
+    cmake -G "Unix Makefiles" @args
+}
+
+function CMake-MSYS () {
+    cmake -G "MSYS Makefiles" @args
+}
+
+function CMake-MinGW () {
+    cmake -G "MinGW Makefiles" @args
+}
+
+
+function CMake-MinGW-Tee () {
+     CMake-MinGW -DCMAKE_BUILD_TYPE=Debug ../ | Tee-Object -file .\cmake.log
+}
+
+function CMake-Build-Tee () {
+    CMake --build ./ --config Debug | Tee-Object -file .\make_build.log
+}
+
+#gvim shortcurt
+function Gvim-Diff () {
+    gvim -d @args
+}
+
+function Gvim-ReadOnly () {
+    gvim -R @args
+}
+
+
+<#
+#********************************************************************
+#							My Alias
+#********************************************************************
+#>
+New-Alias -name l -Value ls
+New-Alias -name ll -Value l
+New-Alias -name cl -Value Dir-List
+New-Alias -Name cmd2str -Value CommandOut-ToString
+New-Alias -Name ln -Value New-Link
+
+New-Alias -Name np -Value "C:\Program Files\Notepad++\notepad++.exe"
+New-Alias -Name make -Value "D:\ProgramFiles\msys2\mingw64\bin\mingw32-make.exe"
+New-Alias -Name grepp -Value Filter-String
+New-Alias -Name grepf -Value Filter-File
+
+New-Alias -Name egrep -Value Extend-Grep
+New-Alias -Name fgrep -Value Fixed-Grep
+New-Alias -Name grepc -Value Grep-Color
+New-Alias -Name egrepc -Value Egrep-Color
+New-Alias -Name fgrepc -Value Fgrep-Color
+
+New-Alias -name g -Value gvim
+New-Alias -name grl Gvim-ReadOnly
+New-Alias -name gvd Gvim-Diff
+
