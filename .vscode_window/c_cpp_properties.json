@@ -1,4 +1,3 @@
-// You can set the compiler to gcc, clang or other compiler as you like, default is clang
 {
     "configurations": [
         {

@@ -24,11 +24,11 @@
                     "${workspaceFolder}"
                 ],
                 "pattern": {
-                    "regexp": "^(CMake )(Warning|Error) at (.*):([0-9]+) (.*)$",
-                    "file": 3,
-                    "line": 4,
-                    "severity": 2,
-                    "message": 5
+                  "regexp": "^(CMake )(Warning|Error) at (.*):([0-9]+) (.*)$",
+                  "file": 3,
+                  "line": 4,
+                  "severity": 2,
+                  "message": 5
                 }
             },
             "group": "build",
@@ -73,7 +73,38 @@
             "detail": "compiler: D:\\ProgramFiles\\msys2\\mingw64\\bin\\clang+.exe",
             "dependsOrder": "sequence",
             "dependsOn": [
-                "List WorkSpace Info"
+                "List WorkSpace Info",
+                "Cmake: Out-of-source build"
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "make run",
+            "command": "make",
+            "args": [
+                "run",
+                "|",
+                "Tee-Object",
+                "-file",
+                ".\\make_run.log"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}\\build"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "focus": true
+            },
+            "detail": "excute make run command in ${workspaceFolder}",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "List WorkSpace Info",
+                "C/C++: Build Project through CMake"
             ]
         },
         {
@@ -151,36 +182,6 @@
             "dependsOrder": "sequence",
             "dependsOn": [
                 "List WorkSpace Info"
-            ]
-        },
-        {
-            "type": "shell",
-            "label": "make run",
-            "command": "make",
-            "args": [
-                "run",
-                "|",
-                "Tee-Object",
-                "-file",
-                ".\\make_run.log"
-            ],
-            "options": {
-                "cwd": "${workspaceFolder}\\build"
-            },
-            "problemMatcher": [],
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always",
-                "focus": true
-            },
-            "detail": "excute make run command in ${workspaceFolder}",
-            "dependsOrder": "sequence",
-            "dependsOn": [
-                "List WorkSpace Info",
-                "C/C++: Build Project through CMake"
             ]
         },
         {
